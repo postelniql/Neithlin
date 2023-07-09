@@ -1,7 +1,8 @@
-import { getLinks } from "./links";
+import { followLinks } from "./links";
 import { downloadUrl } from "./page";
 
 const testUrl = new URL("https://example.com");
+const TEST_DEPTH = 3;
 
 (async (url) => {
   try {
@@ -12,8 +13,8 @@ const testUrl = new URL("https://example.com");
       return null;
     }
 
-    const links = getLinks(data);
-    console.log(links);
+    const initialLink = testUrl.href;
+    followLinks(initialLink, TEST_DEPTH);
   } catch (error) {
     console.error(`Failed to get links of page with error: ${error}`);
   }
