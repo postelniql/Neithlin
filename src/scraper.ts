@@ -2,7 +2,7 @@ import { followLinks } from "./links";
 import { downloadUrl } from "./page";
 
 const testUrl = new URL("https://example.com");
-const TEST_DEPTH = 3;
+const TEST_DEPTH = 1;
 
 (async (url) => {
   try {
