@@ -15,6 +15,8 @@ Install deps by running
 pnpm install
 ```
 
+See model configuration in `.env.dist` or go with hardcoded defaults
+
 Run server with
 
 ```
