@@ -1,8 +1,8 @@
-import { followLinks } from "../links";
-import * as page from "../page";
+import { followLinks } from "../src/links";
+import * as page from "../src/page";
 
-jest.mock("../page", () => ({
-  ...jest.requireActual("../page"),
+jest.mock("../src/page", () => ({
+  ...jest.requireActual("../src/page"),
   downloadUrl: jest.fn(),
 }));
 

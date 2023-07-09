@@ -1,5 +1,5 @@
 import axios from "axios";
-import { downloadUrl } from "../page";
+import { downloadUrl } from "../src/page";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
