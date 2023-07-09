@@ -21,7 +21,7 @@ Run server with
 pnpm start
 ```
 
-Go to [localhost:8080](localhost:8080) to see results
+Go to [localhost:8080](http://localhost:8080) to see results
 
 Run automatic tests with
 
