@@ -8,20 +8,22 @@ To practice asynchronous programming and for fun
 
 ### To get started
 
-- Make sure you have pnpm installed locally and use node 16.14 or higher
-- install deps by running
+Make sure you have pnpm installed locally and use node 16.14 or higher
+Install deps by running
 
 ```
 pnpm install
 ```
 
-- run script with
+Run server with
 
 ```
 pnpm start
 ```
 
-- run automatic tests with
+Go to [localhost:8080](localhost:8080) to see results
+
+Run automatic tests with
 
 ```
 pnpm test
