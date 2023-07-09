@@ -16,7 +16,10 @@ const getLinksFromPage = (page: PageData): Link[] => {
   return links;
 };
 
-export const followLinks = async (initialLink: Link, maxDepth: number) => {
+export const followLinks = async function* (
+  initialLink: Link,
+  maxDepth: number
+) {
   let followedLinks = new Set<Link>();
   let linksToFollow: LinkWithDepth[] = [{ value: initialLink, depth: 0 }];
 
@@ -27,13 +30,8 @@ export const followLinks = async (initialLink: Link, maxDepth: number) => {
     let currentDepth = currentLink.depth;
 
     if (currentDepth >= maxDepth) {
-      console.log(
-        `won't follow link: ${currentUrl} as it has reached max depth of ${currentDepth}`
-      );
       continue;
     }
-
-    console.log(`following link: ${currentUrl} at depth ${currentDepth}`);
 
     if (!followedLinks.has(currentUrl)) {
       followedLinks.add(currentUrl);
@@ -46,10 +44,11 @@ export const followLinks = async (initialLink: Link, maxDepth: number) => {
         }
 
         const foundLinks = getLinksFromPage(data);
-        console.log("found links: ", foundLinks);
         foundLinks.forEach((link) =>
           linksToFollow.push({ value: link, depth: currentDepth + 1 })
         );
+
+        yield { url: currentUrl, depth: currentDepth };
       } catch (error) {
         console.error(`Failed to follow url with error: ${error}`);
       }

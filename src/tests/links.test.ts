@@ -22,7 +22,9 @@ describe("followLinks", () => {
         '<a href="https://test.com/link1">Link 1</a><a href="https://test.com/link2">Link 2</a>',
     });
 
-    await followLinks("https://test.com", 1);
+    const linkGenerator = followLinks("https://test.com", 1);
+    for await (const _ of linkGenerator) {
+    }
 
     expect(mockDownloadUrl).toHaveBeenCalledTimes(1);
   });
@@ -42,7 +44,9 @@ describe("followLinks", () => {
         content: "",
       });
 
-    await followLinks("https://test.com", 2);
+    const linkGenerator = followLinks("https://test.com", 2);
+    for await (const _ of linkGenerator) {
+    }
 
     expect(mockDownloadUrl).toHaveBeenCalledTimes(3);
   });
@@ -66,7 +70,9 @@ describe("followLinks", () => {
         content: "",
       });
 
-    await followLinks("https://test.com", 2);
+    const linkGenerator = followLinks("https://test.com", 2);
+    for await (const _ of linkGenerator) {
+    }
 
     expect(mockDownloadUrl).toHaveBeenCalledTimes(4);
   });
@@ -92,7 +98,9 @@ describe("followLinks", () => {
       .mockResolvedValueOnce({ url: "https://test.com/link2_1", content: "" })
       .mockResolvedValueOnce({ url: "https://test.com/link2_2", content: "" });
 
-    await followLinks("https://test.com", 3);
+    const linkGenerator = followLinks("https://test.com", 3);
+    for await (const _ of linkGenerator) {
+    }
 
     expect(mockDownloadUrl).toHaveBeenCalledTimes(7);
   });

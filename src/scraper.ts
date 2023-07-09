@@ -1,20 +1,17 @@
 import { followLinks } from "./links";
 import { downloadUrl } from "./page";
 
-const testUrl = new URL("https://example.com");
-const TEST_DEPTH = 1;
+const testUrl = new URL("https://exampl");
+const TEST_DEPTH = 3;
 
 (async (url) => {
   try {
-    const data = await downloadUrl(url);
+    const initialLink = url.href;
 
-    if (!data) {
-      console.log("no links found");
-      return null;
+    const scraper = followLinks(initialLink, TEST_DEPTH);
+    for await (let link of scraper) {
+      console.log(`Yielding link: ${link.url} at depth ${link.depth}`);
     }
-
-    const initialLink = testUrl.href;
-    followLinks(initialLink, TEST_DEPTH);
   } catch (error) {
     console.error(`Failed to get links of page with error: ${error}`);
   }
