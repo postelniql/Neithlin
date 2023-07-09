@@ -1,5 +1,6 @@
 import express from "express";
 import { Server } from "ws";
+import "dotenv/config";
 
 import { followLinks } from "./links";
 
@@ -13,14 +14,14 @@ wss.on("connection", (ws) => {
     console.log(`Received: ${message}`);
   });
 
-  const testUrl = new URL("https://example.com");
-  const TEST_DEPTH = 4;
+  const testUrl = new URL(process.env.TEST_URL || "https://wikipedia.com");
+  const testDepth = Number(process.env.TEST_DEPTH) || 3;
 
   (async (url) => {
     try {
       const initialLink = url.href;
 
-      const scraper = followLinks(initialLink, TEST_DEPTH);
+      const scraper = followLinks(initialLink, testDepth);
       for await (let link of scraper) {
         const now = new Date();
         const timeString = `${now.getHours().toString().padStart(2, "0")}:${now
@@ -28,7 +29,7 @@ wss.on("connection", (ws) => {
           .toString()
           .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
         ws.send(
-          `Yielding link: ${link.url} at depth ${link.depth} at ${timeString}`
+          `Generating link: ${link.url} at depth ${link.depth} at ${timeString}`
         );
       }
     } catch (error) {
