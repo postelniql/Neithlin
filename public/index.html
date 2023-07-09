@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hydra</title>
+  </head>
+  <body>
+    <h1>Scraped Links:</h1>
+    <ul id="links"></ul>
+
+    <script>
+      const socket = new WebSocket("ws://localhost:8080");
+
+      socket.addEventListener("message", (event) => {
+        const listItem = document.createElement("li");
+        listItem.textContent = event.data;
+        document.querySelector("#links").append(listItem);
+      });
+    </script>
+  </body>
+</html>
