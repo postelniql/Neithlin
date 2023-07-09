@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export interface PageData {
-  content: string;
   url: string;
+  content: string;
 }
 
 export const downloadUrl = async (url: URL): Promise<PageData | null> => {

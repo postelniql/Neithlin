@@ -1,7 +1,7 @@
 import { getLinks } from "./links";
 import { downloadUrl } from "./page";
 
-const testUrl = new URL("https://wikipedia.com");
+const testUrl = new URL("https://example.com");
 
 (async (url) => {
   try {
