@@ -3,14 +3,13 @@ import { JSDOM } from "jsdom";
 import { downloadUrl, PageData } from "./page";
 
 type Link = string;
-type Links = string[];
 
 interface LinkWithDepth {
   value: Link;
   depth: number;
 }
 
-const getLinksFromPage = (page: PageData): Links => {
+const getLinksFromPage = (page: PageData): Link[] => {
   const dom = new JSDOM(page.content, { url: page.url });
   const aTags = dom.window.document.querySelectorAll("a");
   const links = Array.from(aTags).map((a) => a.href);
