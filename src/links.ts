@@ -2,7 +2,7 @@ import { JSDOM } from "jsdom";
 
 import { downloadUrl, PageData } from "./page";
 
-type Link = string;
+export type Link = string;
 
 interface LinkWithDepth {
   value: Link;
@@ -48,7 +48,8 @@ export const followLinks = async function* (
           linksToFollow.push({ value: link, depth: currentDepth + 1 })
         );
 
-        yield { url: currentUrl, depth: currentDepth };
+        const linkData = { url: currentUrl, depth: currentDepth };
+        yield linkData;
       } catch (error) {
         console.error(`Failed to follow url with error: ${error}`);
       }
