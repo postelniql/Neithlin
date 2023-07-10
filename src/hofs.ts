@@ -6,13 +6,13 @@ type AsyncGeneratorFunc<T> = (
 ) => AsyncGenerator<T, void, unknown>;
 
 export const withEmitEvents =
-  <T, U>(
+  <T>(
     asyncGeneratorFunc: AsyncGeneratorFunc<T>,
     emitter: EventEmitter,
     eventName: string,
     endingEvent?: string
   ) =>
-  async (...args: U[]) => {
+  async (...args: any[]) => {
     for await (const result of asyncGeneratorFunc(...args)) {
       emitter.emit(eventName, result);
     }
@@ -20,4 +20,14 @@ export const withEmitEvents =
     if (endingEvent) {
       emitter.emit(endingEvent);
     }
+  };
+
+export const withTiming =
+  <T>(func: (...args: any[]) => Promise<T>) =>
+  async (...args: any[]): Promise<number> => {
+    const startTime = Date.now();
+    await func(...args);
+    const endTime = Date.now();
+
+    return (endTime - startTime) / 1000;
   };

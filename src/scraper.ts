@@ -4,7 +4,7 @@ import express from "express";
 import EventEmitter from "events";
 
 import { ScraperEvent } from "./types";
-import { withEmitEvents } from "./hofs";
+import { withEmitEvents, withTiming } from "./hofs";
 import { followLinks, Link } from "./links";
 
 const app = express();
@@ -29,10 +29,18 @@ wss.on("connection", (ws) => {
     ScraperEvent.Done
   );
 
+  const timedEmitAndFollowLinks = withTiming(emitAndFollowLinks);
+
   (async (url) => {
     try {
       const initialLink = url.href;
-      await emitAndFollowLinks(initialLink, testDepth);
+      const totalYieldingTimeInSeconds = await timedEmitAndFollowLinks(
+        initialLink,
+        testDepth
+      );
+      ws.send(
+        `total time spent yieling: ${totalYieldingTimeInSeconds} seconds`
+      );
     } catch (error) {
       console.error(`Failed to get links of page with error: ${error}`);
     }
